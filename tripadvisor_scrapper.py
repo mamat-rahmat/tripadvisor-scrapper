@@ -3,7 +3,7 @@ import platform
 import sys
 from bs4 import BeautifulSoup
 from time import sleep
-import unicodecsv as csv
+import csv
 
 if(len(sys.argv) != 2):
     print('Wrong arguments. Usage : python trip_advisor_scrapper.py CITY_ID')
@@ -13,9 +13,8 @@ else:
     base_url = 'http://www.tripadvisor.com'
     hotel_query = '/Hotels-g'
     
-    f = BytesIO()
-    ofile  = open(city_id+'.csv', "w", newline='')
-    writer = csv.writer(ofile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL, encoding='utf-8')
+    ofile  = open(city_id+'.csv', "w", newline='', encoding='utf-8')
+    writer = csv.writer(ofile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
     row = ['city_name', 'hotel_name', 'hotel_rating', 'review_quote', 'review_text']
     writer.writerow(row)
 
