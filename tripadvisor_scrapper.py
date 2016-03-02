@@ -49,7 +49,7 @@ else:
                 break
 
         citypage_step += 30
-
+        hotel_star = ''
         for hotel in hotelids_rs:
             hotel_title = hotel.find('a', class_='property_title')
 
@@ -75,7 +75,7 @@ else:
                 for reviewid in reviewids_rs:
                     reviewids.append(reviewid['id'])
 
-                hotel_star = ''
+                
                 if(hotelpage_step == 0):
                     reviewids_first = reviewids
                     hotel_star = hotelpage_soup.find(title='Hotel class')
