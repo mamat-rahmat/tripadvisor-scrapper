@@ -101,10 +101,15 @@ else:
                         review_soup = BeautifulSoup(review_html, 'html.parser')
                         
                         review_info = review_soup.find('div', id='REVIEWS')
-                        review_quote = review_info.find('div', class_='quote').text[1:-1]
-                        review_text = review_info.find('div', class_='entry').p.text[1:-1]
-                        review_reviewername = review_info.find('div', class_='username')
-                        # print(review_reviewername)
+                        if review_info is None:
+                           review_quote=''
+                           review_text=''
+                           review_reviewername=''
+                        else:
+                           review_quote = review_info.find('div', class_='quote').text[1:-1]
+                           review_text = review_info.find('div', class_='entry').p.text[1:-1]
+                           review_reviewername = review_info.find('div', class_='username')
+                        #print(review_reviewername)
                         if review_reviewername.span is None:
                             review_reviewername = ''
                         else:
