@@ -17,8 +17,8 @@ else:
     ofile  = open(city_id+'_list.csv', "w", newline='', encoding='utf-8')
     writer = csv.writer(ofile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
     
-    row = ['hotel_name', 'hotel_id', 'n_reviews']
-    writer.writerow(row)
+    header = ['hotel_name', 'hotel_id', 'n_reviews', 'data']
+    writer.writerow(header)
 
     i = 0
     citypage_step = 0
@@ -49,16 +49,20 @@ else:
             citypage_step += 30
 
             for hotel in hotelids_rs:
+                hotel_title = hotel.find('a', class_='property_title')
+                hotel_name = hotel_title.text
                 hotel_id = hotel['id'][6:]
-                hotel_name = hotel.find('a', class_='property_title').text
                 hotel_reviews = hotel.find('span', class_='more')
                 if hotel_reviews is None:
                     n_reviews = '0'
                 else:    
                     n_reviews = hotel.find('span', class_='more').text[:-8].replace(',', '')
+                data = hotel_title['href'][14:]
+                while((not data[-1].isdigit()) or (len(data)>20)):
+                    data = data[:-1]
 
                 i = i+1
-                row = [hotel_name.encode('ascii', 'ignore').decode('ascii'), hotel_id, n_reviews]
+                row = [hotel_name.encode('ascii', 'ignore').decode('ascii'), hotel_id, n_reviews, data]
                 print(i, row)
                 writer.writerow(row)
 
