@@ -6,6 +6,9 @@ from bs4 import BeautifulSoup
 from time import sleep
 import csv
 
+def ignore_ascii(s):
+    return s.encode('ascii', 'ignore').decode('ascii')
+
 if(len(sys.argv) < 4):
     print('Wrong arguments. Usage : "python trip_advisor_scrapper.py [en|id] CITY_ID DATA1 DATA2 ...". While DATA is in format gLOCATION_ID-dHOTEL_ID')
 else:
@@ -100,7 +103,7 @@ else:
                         review_reviewerloc = review_reviewerloc.text[1:-1]
                     
 
-                    row = [city_id, hotel_name, hotel_star, review_reviewername, review_reviewerloc, review_quote, review_text]
+                    row = [city_id, ignore_ascii(hotel_name), hotel_star, ignore_ascii(review_reviewername), ignore_ascii(review_reviewerloc), ignore_ascii(review_quote), ignore_ascii(review_text)]
                     print(counter, row)
                     writer.writerow(row)
                     counter += 1
