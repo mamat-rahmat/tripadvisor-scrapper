@@ -107,7 +107,8 @@ else:
                     
 
                     row = [city_id, ignore_ascii(hotel_name), hotel_star, ignore_ascii(review_reviewername), ignore_ascii(review_reviewerloc), ignore_ascii(review_quote), ignore_ascii(review_text)]
-                    print(counter, row)
+                    # print(counter, row)
+                    print(counter)
                     writer.writerow(row)
                     counter += 1
     ofile.close()
