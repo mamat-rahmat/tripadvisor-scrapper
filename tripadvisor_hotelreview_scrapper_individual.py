@@ -5,6 +5,7 @@ import sys
 from bs4 import BeautifulSoup
 from time import sleep
 import csv
+import timeit
 
 def ignore_ascii(s):
     return s.encode('ascii', 'ignore').decode('ascii')
@@ -12,6 +13,8 @@ def ignore_ascii(s):
 if(len(sys.argv) < 4):
     print('Wrong arguments. Usage : "python trip_advisor_scrapper.py [en|id] CITY_ID DATA1 DATA2 ...". While DATA is in format gLOCATION_ID-dHOTEL_ID')
 else:
+    start_time = timeit.default_timer()
+
     pause = 1
     lang = sys.argv[1]
     city_id = sys.argv[2]
@@ -107,5 +110,7 @@ else:
                     print(counter, row)
                     writer.writerow(row)
                     counter += 1
-
     ofile.close()
+    end_time = timeit.default_timer() 
+    elapsed = end_time - start_time
+    print('finished get', counter, 'data in', elapsed, 'seconds')
